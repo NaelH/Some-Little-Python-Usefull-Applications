@@ -33,9 +33,8 @@ Je suis également ouvert aux suggestions pour améliorer les applications déj�
 
 Voici une liste d'applications déjà développées dans le dépôt :
 
-- **Application 1** : Description brève de l'application 1.
-- **Application 2** : Description brève de l'application 2.
-- **Application 3** : Description brève de l'application 3.
+- **AuthPY** : Un système d'authentification avec Python (Utilisation de SQLite, Hashlib et OS. Fonctionnel sur PowerShell et Terminal linux et mac)
+- **ScoreGestioner** : Un moyen de gérer les points de différents utilisateurs sans connexion (Utilisation de SQLite)
 
 N'hésite pas à consulter ces projets pour t'inspirer ou apprendre.
 
