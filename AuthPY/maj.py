@@ -1,4 +1,6 @@
 import sqlite3
+import hashlib
+
 def maj():
     conn = sqlite3.connect("bdd.db")
     cur = conn.cursor()
@@ -12,9 +14,12 @@ def maj():
                 rank TEXT DEFAULT 'usr',
                 disabled INTEGER DEFAULT 0)""")
     conn.commit()
+    cur.execute("SELECT id FROM users WHERE username = ? AND id = ?", ("admin", 1,))
+    result = cur.fetchone()
+    if not result:
+        cur.execute("INSERT INTO users(username,password,rank,disabled) VALUES(?,?,?,?)", ("admin",hashlib.sha256(b"admin").hexdigest(),"adm",0))
+        conn.commit()
 
-    cur.execute("INSERT INTO users(username,password,rank,disabled) VALUES(?,?,?,?)", ("admin","admin","adm",0))
-    conn.commit()
     cur.executescript("""
                     CREATE TABLE IF NOT EXISTS messages (
                     id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
