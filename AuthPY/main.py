@@ -1,13 +1,13 @@
-import sqlite3
 import getpass
 import os
 import hashlib
 
 import connector
 import maj
+import messages
 
 class Login:
-    def __init__(self, db_name="bdd.db"):
+    def __init__(self):
         self.conn = connector.conn
         self.cursor = self.conn.cursor()
         self.userConnected = False
@@ -200,7 +200,6 @@ class Login:
         os.system("clear")
         """Access to a profile page"""
         print("==== PROFILE DE ", self.current_user, "====")
-        ecriture = None
         if self.current_rank == "adm":
             ecriture = "Administrateur"
         else:
@@ -241,7 +240,9 @@ class Login:
         username = input("Entrez votre pseudo : ")
         if self.user_exists(username):
             password = getpass.getpass(prompt="Entrez votre mot de passe : ")
-            if self.validate_password(username, password):
+            m = hashlib.sha256()
+            m.update(password.encode())
+            if self.validate_password(username, m.hexdigest()):
                 if not self.user_is_desactive(username):
                     self.userConnected = True
                     self.current_user = username
@@ -264,6 +265,7 @@ class Login:
             self.cursor.execute("INSERT INTO users (username, password, rank, disabled) VALUES (?,?,?,?)", (username, password, 'usr', 0,))
             self.conn.commit()
             self.erreur = f"Utilisateur '{username}' créé avec succès."
+            self.cursor.execute("INSERT INTO messages(username_exp, username_dest, message, lu) VALUES(?,?,?,?)", ("admin", username, messages.BienvenueMessage(username), 0))
             self.interface_one()
         else:
             self.erreur = f"Le pseudo '{username}' a déjà été choisi."
@@ -278,7 +280,14 @@ class Login:
         print("==== REGISTER ====")
         username = input("Tapez votre pseudo : ")
         password = getpass.getpass(prompt="Créez un mot de passe : ")
-        self.register_user(username, password)
+        password2 = getpass.getpass(prompt="Retapez votre mot de passe : ")
+        if password2 == password:
+            m = hashlib.sha256()
+            m.update(password.encode())
+            self.register_user(username, m.hexdigest())
+        else:
+            self.erreur = "Vos mot de passes ne sont pas identiques."
+            self.register_interface()
 
     def interface_one(self):
         os.system("clear")
