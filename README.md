@@ -63,4 +63,4 @@ Ce projet est mis à disposition gratuitement. N'hésite pas à l'utiliser, à l
 
 ---
 
-Merci de contribuer et d'apprendre avec nous !
+Merci de contribuer et d'apprendre avec moi !
