@@ -14,6 +14,7 @@ class Login:
         self.current_user = None
         self.current_rank = None
         self.erreur = None
+        self.attempt = 0
 
     def user_exists(self, username):
         """Check if a user exists in the database."""
@@ -41,11 +42,16 @@ class Login:
         if result and result[0] == 1:
             return True
         return False
-    def desactive_user(self,username):
+    def desactive_user(self,username, pagereturn="profile"):
         self.cursor.execute("UPDATE users SET disabled = ? WHERE username = ?", (1, username,))
         self.conn.commit()
         print(f"L'utilisateur {username} a bien été désactivé.")
-        self.profile_interface()
+        if pagereturn == "profile":
+            self.profile_interface()
+        elif pagereturn == "login":
+            self.interface_one()
+        else:
+            self.interface_one()
     def active_user(self,username):
         self.cursor.execute("UPDATE users SET disabled = ? WHERE username = ?", (0, username,))
         self.conn.commit()
@@ -254,6 +260,11 @@ class Login:
                     self.interface_one()
             else:
                 self.erreur = "Mot de passe invalide."
+                self.attempt = self.attempt + 1
+                if self.attempt == 3:
+                    self.desactive_user(username, "login")
+                    self.erreur = f"Suite au 3 tentative de connexion, le compte {username} a été désactivé."
+                    self.attempt = 0
                 self.interface_one()
         else:
             self.erreur = "Nous ne trouvons pas votre compte dans la base de donnée merci de vous inscrire."
