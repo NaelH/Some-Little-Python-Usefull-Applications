@@ -15,6 +15,7 @@ class Login:
         self.current_rank = None
         self.erreur = None
         self.attempt = 0
+        self.last_username = None
 
     def user_exists(self, username):
         """Check if a user exists in the database."""
@@ -260,7 +261,11 @@ class Login:
                     self.interface_one()
             else:
                 self.erreur = "Mot de passe invalide."
-                self.attempt = self.attempt + 1
+                if self.last_username == username:
+                    self.attempt = self.attempt + 1
+                else:
+                    self.attempt = 0
+                    self.last_username = username
                 if self.attempt == 3:
                     self.desactive_user(username, "login")
                     self.erreur = f"Suite au 3 tentative de connexion, le compte {username} a été désactivé."
