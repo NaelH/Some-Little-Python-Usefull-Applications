@@ -84,7 +84,7 @@ class Login:
         else:
             self.erreur = "Votre message ne peux pas être vide."
             self.awnser_interface(username)
-    
+
     def show_message_interface(self, msgid):
         os.system("clear")
         if self.erreur:
@@ -142,7 +142,7 @@ class Login:
             else:
                 self.erreur = "Ce message n'existe pas."
                 self.messagerie_interface()
-        
+
     def reactive_interface(self):
         os.system("clear")
         print("=== ZONE DE REACTIVATION DE COMPTE ===")
@@ -152,6 +152,9 @@ class Login:
         username = input("Entrez le pseudo de l'utilisateur a réactiver : ")
         if self.user_exists(username):
             if self.user_is_desactive(username):
+                motif = input("Pourquoi cet utilisateur a été désactivé ? ")
+                self.cursor.execute("INSERT INTO messages(username_exp, username_dest, message, lu) VALUES(?,?,?,?)", ("admin", username, messages.MessageDeRetour(username, motif), 0))
+                self.conn.commit()
                 self.active_user(username)
             else:
                 print("Erreur : Cet utilisateur n'est pas désactiver.")
@@ -202,7 +205,78 @@ class Login:
         else:
             self.erreur = "Cet utilisateur n'existe pas ou a été désactivé."
             self.write_message_interface()
+    def edit_profil(self):
+        os.system("clear")
+        """Modification du profil"""
+        print("==== MODIFICATION DE VOTRE PROFIL ====")
+        if self.erreur:
+            print(self.erreur)
+            self.erreur = None
 
+        print("Vous souhaitez : ")
+        print("1 : Modifier mon pseudo")
+        print("2 : Modifier mon mot de passe")
+        print("3 : Désactiver mon compte")
+        print("q : Retour au profil")
+
+        choice = input()
+        if choice == "1":
+            new_username = input("Entrez votre nouveau pseudo : ")
+            if self.user_exists(new_username):
+                self.erreur = "Ce nom d'utilisateur est déjà occupé."
+            else:
+                self.cursor.execute("UPDATE users SET username = ? WHERE username = ?", (new_username, self.current_user))
+                self.conn.commit()
+                self.cursor.execute("UPDATE messages SET username_exp = ? WHERE username_exp = ?", (new_username, self.current_user))
+                self.conn.commit()
+                self.cursor.execute("UPDATE messages SET username_dest = ? WHERE username_dest = ?", (new_username, self.current_user))
+                self.conn.commit()
+                self.current_user = new_username
+                self.erreur = f"Profil parfaitement modifié {new_username} ! "
+                self.edit_profil()
+        elif choice == "2":
+            old_password = getpass.getpass(prompt="Entrez votre mot de passe : ")
+            m = hashlib.sha256()
+            m.update(old_password.encode())
+            if self.validate_password(self.current_user, m.hexdigest()):
+                password1 = getpass.getpass(prompt="Créez votre mot de passe : ")
+                password2 = getpass.getpass(prompt="Retapez votre nouveau mot de passe : ")
+                if password1 == password2:
+                    m1 = hashlib.sha256()
+                    m1.update(password1.encode())
+                    self.cursor.execute("UPDATE users SET password = ? WHERE username = ?", (m1.hexdigest(), self.current_user))
+                    self.conn.commit()
+                    print("Votre mot de passe a bien été modifié, veuillez appuyer sur entrer")
+                    print("Vous allez être déconnecter")
+                    input()
+                    self.logout()
+
+                else:
+                    self.erreur = "Les mots de passes sont différents."
+                    self.edit_profil()
+
+            else:
+                self.erreur = "Mauvais mot de passe."
+                self.edit_profil()
+        elif choice == "3":
+            os.system("clear")
+            print("==== DÉSACTIVATION DU COMPTE ====")
+            print("Action réversible avec l'aide de l'admin.")
+            print("Veuillez taper votre nom d'utilisateur pour valider votre demande de cloture de compte, sinon tapez non")
+            val = input("Vous : ")
+            if val == self.current_user:
+                self.cursor.execute("UPDATE users SET disabled = ? WHERE username = ?", (1,self.current_user))
+                self.conn.commit()
+                print("Votre compte a bien été désactivé.")
+                print("Tapez sur entrer pour pouvoir vous déconnecter.")
+                input()
+                self.logout()
+            elif val == "non":
+                self.erreur = "Merci de ne pas avoir désactiver votre compte."
+                self.edit_profil()
+            else:
+                print("Nous n'avons pas compris, retour à la page d'édition de profil")
+                self.edit_profil()
     def profile_interface(self):
         os.system("clear")
         """Access to a profile page"""
@@ -222,6 +296,7 @@ class Login:
         print("3 : Réactiver un compte")
         print("4 : Messagerie")
         print("5 : Écrire un message")
+        print("6 : Modifier mon profil")
         action = input("Écrivez votre choix : ")
         if action == "1":
             self.logout()
@@ -233,6 +308,8 @@ class Login:
             self.messagerie_interface()
         if action == "5":
             self.write_message_interface()
+        if action == "6":
+            self.edit_profil()
         self.erreur = "Erreur de l'action"
         self.profile_interface()
     def get_user_rank(self, username):

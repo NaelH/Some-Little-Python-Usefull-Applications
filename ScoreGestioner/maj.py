@@ -11,5 +11,14 @@ def maj():
                 username VARCHAR(25) NOT NULL,
                 score INTEGER NOT NULL)""")
     conn.commit()
+
+    donnee = [
+        ('935nlhu', '0'),
+        ('964asrt', '100'),
+        ("907arbe", '12')
+    ]
+
+    cur.executemany("INSERT INTO score(username, score) VALUES (?,?)", donnee)
+    conn.commit()
     cur.close()
     conn.close()
