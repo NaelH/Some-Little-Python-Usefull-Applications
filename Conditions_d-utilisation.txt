@@ -1,0 +1,32 @@
+Some Little Python Usefull Applications 
+
+Copyright (c) 2025 NaelH
+
+Conditions d'utilisation
+
+    Autorisation d'utilisation
+    Vous êtes autorisé à utiliser, modifier et distribuer ce programme dans le respect des conditions de cette licence.
+
+    Sécurité et Responsabilité
+    Ce programme a été conçu pour être sécurisé et fonctionnel dans des conditions d'utilisation normales. Cependant, le développeur décline toute responsabilité en cas de dommages liés à l'utilisation des programmes, y compris mais sans s'y limiter :
+        Pannes matérielles ou logiciels
+        Perte de données
+        Impacts sur la performance ou la consommation des ressources système.
+
+    Consommation de ressources
+    L'utilisation de ce programme peut entraîner une consommation importante des ressources de votre système, y compris la mémoire, le processeur et le stockage. Vous êtes responsable de l'évaluation de l'impact sur vos ressources avant d'exécuter le programme. Le développeur ne pourra être tenu responsable des problèmes de performance ou de pannes survenant pendant ou après l'exécution.
+
+    Absence de garantie
+    Le programme est fourni "tel quel", sans aucune garantie d'aucune sorte, explicite ou implicite, y compris, mais sans s'y limiter, les garanties implicites de qualité marchande et d'adéquation à un usage particulier. L'utilisateur assume l'entière responsabilité des risques liés à l'utilisation du programme.
+
+    Limitation de responsabilité
+    En aucun cas, le développeur ne pourra être tenu responsable des dommages directs ou indirects, y compris mais sans s'y limiter, les pertes de données, pertes financières, ou autres dommages matériels résultant de l'utilisation ou de l'incapacité d'utiliser ce programme.
+
+    Modification et Redistribution
+    Vous pouvez modifier et redistribuer ce programme sous réserve de respecter cette licence et de mentionner toute modification apportée. Vous ne pouvez pas utiliser le nom du développeur ou de l'organisation pour promouvoir des versions dérivées sans autorisation explicite.
+
+    Mises à jour
+    Le développeur peut fournir des mises à jour et des correctifs, mais n'est pas obligé de le faire. L'utilisateur est responsable de vérifier et d'appliquer les mises à jour.
+
+    Acceptation des conditions
+    En utilisant ce programme, vous acceptez les termes et conditions de cette licence.
