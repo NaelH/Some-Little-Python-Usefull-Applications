@@ -35,6 +35,7 @@ Voici une liste d'applications déjà développées dans le dépôt :
 
 - **AuthPY** : Un système d'authentification avec Python (Utilisation de SQLite, Hashlib et OS. Fonctionnel sur PowerShell et Terminal linux et mac)
 - **ScoreGestioner** : Un moyen de gérer les points de différents utilisateurs sans connexion (Utilisation de SQLite)
+- **MorpionPY** : Un mini-jeu qui se joue à 2 sur le principe du Tic Tac Toe (morpion)
 
 N'hésite pas à consulter ces projets pour t'inspirer ou apprendre.
 
