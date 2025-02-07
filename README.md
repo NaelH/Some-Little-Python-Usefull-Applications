@@ -1,6 +1,6 @@
 # Some Little Python Useful Applications
 
-Bienvenue sur le dépôt **Some Little Python Useful Applications** ! Ce projet est une collection d'applications Python utiles, principalement destinées à l'apprentissage et à la pratique des concepts de programmation en Python.
+Bienvenue sur le dépôt **Some Little Python Usefull Applications** ! Ce projet est une collection d'applications Python utiles, principalement destinées à l'apprentissage et à la pratique des concepts de programmation en Python.
 
 L'idée est simple : les utilisateurs peuvent proposer des idées de projets et je me charge de les réaliser. Ce dépôt est donc en perpétuelle évolution, avec de nouveaux projets ajoutés régulièrement.
 
@@ -36,6 +36,7 @@ Voici une liste d'applications déjà développées dans le dépôt :
 - **AuthPY** : Un système d'authentification avec Python (Utilisation de SQLite, Hashlib et OS. Fonctionnel sur PowerShell et Terminal linux et mac)
 - **ScoreGestioner** : Un moyen de gérer les points de différents utilisateurs sans connexion (Utilisation de SQLite)
 - **MorpionPY** : Un mini-jeu qui se joue à 2 sur le principe du Tic Tac Toe (morpion)
+- **CSV2HTML** : Un code qui transforme un fichier CSV en un code HTML (Shell Linux uniquement)
 
 N'hésite pas à consulter ces projets pour t'inspirer ou apprendre.
 
