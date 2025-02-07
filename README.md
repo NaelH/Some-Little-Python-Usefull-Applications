@@ -1,4 +1,4 @@
-# Some Little Python Useful Applications
+# Some Little Python Usefull Applications
 
 Bienvenue sur le dépôt **Some Little Python Usefull Applications** ! Ce projet est une collection d'applications Python utiles, principalement destinées à l'apprentissage et à la pratique des concepts de programmation en Python.
 
